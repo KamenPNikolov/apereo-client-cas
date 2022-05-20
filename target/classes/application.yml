@@ -1,0 +1,58 @@
+server:
+  port: 8080
+  servlet:
+    # The context-path is required due to Apereo Server pre-existing requirements
+    context-path: "/oidc-spring"
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  mvc:
+    pathmatch:
+      # Required for swagger2 config
+      matching-strategy: ant_path_matcher
+  freemarker:
+    suffix: .ftl
+  security:
+    oauth2:
+      client:
+        registration:
+          cas:
+            client-id: "coCvX3r9KCgrDJ3U.onpremise.ad.blahapet.aux.localhost"
+            client-secret: "6b3e6b73752670352b584556392d7a2c586a212f673f535e6679342b485e2d3d0a"
+            redirect-uri: "http://localhost:8080/oidc-spring/login/oauth2/code/"
+            authorization-grant-type: "authorization_code"
+        provider:
+          cas:
+            authorization-uri: "https://cas-t.cez.cz/cas/oidc/authorize"
+            token-uri: "https://cas-t.cez.cz/cas/oidc/token"
+            user-info-uri: "https://cas-t.cez.cz/cas/oidc/profile"
+            user-name-attribute: "sub"
+            # Custom field for log out. Its place here is for convenience only.
+            log-out-uri: "https://cas-t.cez.cz/cas/oidc/logout"
+
+# Custom configuration for the WebClient used in the REST endpoints communication with Apereo
+webclient-config:
+  apereo-server-url: "https://cas-t.cez.cz/cas/"
+  client-id: "coCvX3r9KCgrDJ3U.onpremise.ad.blahapet.aux.localhost"
+  client-secret: "6b3e6b73752670352b584556392d7a2c586a212f673f535e6679342b485e2d3d0a"
+  access-token-endpoint: "oauth2.0/accessToken"
+  profile-endpoint: "oauth2.0/profile"
+
+# JWT
+jwt:
+  issuer: "Apereo-Client-Service"
+  key: "aKOJSDhb03897f&^@Bd-(*@NQBADy7isbn20asdbnA)*SUd"
+  validity: 1000000
+
+# Spring Fox / Swagger
+springfox:
+  documentation:
+    enabled: false
+
+#logging:
+#  level:
+#    root: DEBUG
+
+

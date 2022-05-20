@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Apereo Client Service</title>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link th:href="@{~/oidc-spring/css/styles.css}" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+
+        <div id="header" th:replace="fragment/common :: top"></div>
+
+        <!-- Header-->
+        <header class="py-5">
+            <div class="container px-lg-5">
+
+                <div class="p-2 bg-light rounded-3 text-center">
+                    <div class="m-2">
+                        <h1 sec:authorize="isAuthenticated()" class="display-5 fw-bold" th:text="${username}"></h1>
+                        <h1 sec:authorize="!isAuthenticated()" class="display-5 fw-bold">Please Log In!</h1>
+                    </div>
+                </div>
+
+
+                <div sec:authorize="isAuthenticated()" >
+
+                    <p class="lead">User Group Type: <code class="small" th:text="${groupsType}"></code></p>
+                    <p class="lead">User Group ID: <code class="small" th:text="${idType}"></code></p>
+                    <p class="lead">User Reg. Pcs: <code class="small" th:text="${regPcs}"></code></p>
+
+                    <p class="lead" th:each="list : ${groups}">Group:<br>
+                        <code class="small" th:text="*{list}"></code>
+                    </p>
+
+                </div>
+
+            </div>
+        </header>
+    </body>
+</html>
